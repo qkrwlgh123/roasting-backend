@@ -1,6 +1,7 @@
 'use strict';
-const { Model } = require('sequelize');
-
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Shop extends Model {
     /**
@@ -12,29 +13,27 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Shop.init(
-    {
-      shopName: DataTypes.STRING,
-      desertType: DataTypes.STRING,
-      roadAddress: DataTypes.STRING,
-      parcelAddress: DataTypes.STRING,
-      telNumber: DataTypes.STRING,
-      priceRange: DataTypes.STRING,
-      parkingType: DataTypes.STRING,
-      openTime: DataTypes.ARRAY(DataTypes.JSON),
-      breakTime: DataTypes.ARRAY(DataTypes.JSON),
-      holiday: DataTypes.STRING,
-      rate: DataTypes.FLOAT,
-      images: DataTypes.ARRAY(DataTypes.STRING),
-      latitude: DataTypes.FLOAT,
-      longitude: DataTypes.FLOAT,
-      website: DataTypes.STRING,
-      menu: DataTypes.ARRAY(DataTypes.JSON),
-    },
-    {
-      sequelize,
-      modelName: 'Shop',
-    }
-  );
+  Shop.init({
+    shopName: DataTypes.STRING,
+    description: DataTypes.STRING,
+    desertType: DataTypes.STRING,
+    roadAddress: DataTypes.STRING,
+    parcelAddress: DataTypes.STRING,
+    telNumber: DataTypes.STRING,
+    priceRange: DataTypes.STRING,
+    parkingType: DataTypes.STRING,
+    openTime: DataTypes.STRING,
+    breakTime: DataTypes.STRING,
+    holiday: DataTypes.STRING,
+    rate: DataTypes.FLOAT,
+    images: DataTypes.STRING,
+    latitude: DataTypes.FLOAT,
+    longitude: DataTypes.FLOAT,
+    website: DataTypes.STRING,
+    menu: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'Shop',
+  });
   return Shop;
 };

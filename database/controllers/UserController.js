@@ -3,7 +3,7 @@ const { User } = require('../models');
 const addUser = async (req, res) => {
   const userInfo = {
     username: req.body.username,
-    profileImage: req.body.profileImage,
+    password: req.body.password,
     profileDescription: req.body.profileDescription,
   };
 
