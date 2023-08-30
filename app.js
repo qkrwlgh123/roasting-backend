@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
 app.use(express.urlencoded({ extended: true }));
+
 sequelize
   .sync()
   .then(() => console.log('connected database'))

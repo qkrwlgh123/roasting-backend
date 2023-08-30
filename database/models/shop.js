@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Shop extends Model {
     /**
@@ -11,29 +9,34 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Shop.belongsTo(models.User, { foreignKey: 'userId' });
     }
   }
-  Shop.init({
-    shopName: DataTypes.STRING,
-    description: DataTypes.STRING,
-    desertType: DataTypes.STRING,
-    roadAddress: DataTypes.STRING,
-    parcelAddress: DataTypes.STRING,
-    telNumber: DataTypes.STRING,
-    priceRange: DataTypes.STRING,
-    parkingType: DataTypes.STRING,
-    openTime: DataTypes.STRING,
-    breakTime: DataTypes.STRING,
-    holiday: DataTypes.STRING,
-    rate: DataTypes.FLOAT,
-    images: DataTypes.STRING,
-    latitude: DataTypes.FLOAT,
-    longitude: DataTypes.FLOAT,
-    website: DataTypes.STRING,
-    menu: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Shop',
-  });
+  Shop.init(
+    {
+      shopName: DataTypes.STRING,
+      description: DataTypes.STRING,
+      desertType: DataTypes.STRING,
+      roadAddress: DataTypes.STRING,
+      parcelAddress: DataTypes.STRING,
+      telNumber: DataTypes.STRING,
+      priceRange: DataTypes.STRING,
+      parkingType: DataTypes.STRING,
+      openTime: DataTypes.STRING,
+      breakTime: DataTypes.STRING,
+      holiday: DataTypes.STRING,
+      rate: DataTypes.FLOAT,
+      images: DataTypes.STRING,
+      latitude: DataTypes.FLOAT,
+      longitude: DataTypes.FLOAT,
+      website: DataTypes.STRING,
+      menu: DataTypes.STRING,
+      userId: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: 'Shop',
+    }
+  );
   return Shop;
 };
