@@ -1,4 +1,3 @@
-const { upload } = require('../../utils/uploads');
 const { Shop } = require('../models');
 
 // 카페 샵 신규 등록
@@ -34,11 +33,6 @@ const seeAllShops = async (req, res) => {
     images: JSON.parse(item.images), // 이미지 배열을 파싱하여 다시 배열로 변환
   }));
   res.status(200).send(parsedShop);
-};
-
-module.exports = {
-  addShop,
-  seeAllShops,
 };
 
 // 전달받은 위도, 경도를 이용하여 반경 1km 이내 커피샵 목록 조회

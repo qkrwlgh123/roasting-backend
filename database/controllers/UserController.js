@@ -79,6 +79,7 @@ const loginUser = async (req, res) => {
       res.status(200).json({
         token,
         userInfo: {
+          id: existUser.id,
           username: existUser.username,
           profileImage: existUser.profileImage,
           profileDescription: existUser.profileDescription,

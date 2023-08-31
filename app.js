@@ -24,6 +24,7 @@ sequelize
 
 app.use('/user', require('./routes/user'));
 app.use('/shop', require('./routes/shop'));
+app.use('/review', require('./routes/review'));
 
 app.get('/', (req, res) => res.send(`Server is running at port ${PORT}`));
 

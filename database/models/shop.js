@@ -9,7 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Shop.belongsTo(models.User, { foreignKey: 'userId' });
+      Shop.belongsTo(models.User, { foreignKey: 'userId', as: 'user_shop' });
+      Shop.hasMany(models.Review, {
+        foreignKey: 'shopId',
+        as: 'shop_review',
+      });
     }
   }
   Shop.init(
@@ -26,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
       breakTime: DataTypes.STRING,
       holiday: DataTypes.STRING,
       rate: DataTypes.FLOAT,
+      participants: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
       images: DataTypes.STRING,
       latitude: DataTypes.FLOAT,
       longitude: DataTypes.FLOAT,
