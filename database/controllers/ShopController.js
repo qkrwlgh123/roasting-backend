@@ -4,12 +4,18 @@ const { Shop } = require('../models');
 const addShop = async (req, res) => {
   try {
     // 업로드된 파일 처리
-    const url = req.file.location;
+    const urls = req.files;
+
     // 전송된 데이터 처리
     const dataObject = JSON.parse(req.body.data);
 
     const shop = await Shop.create(dataObject).catch((err) => console.log(err));
-    const stringifiedImgArr = JSON.stringify([url]);
+    const imagesArr = [];
+    urls.forEach((current) => {
+      imagesArr.push(current.location);
+    });
+    const stringifiedImgArr = JSON.stringify(imagesArr);
+
     await Shop.update(
       { images: stringifiedImgArr },
       { where: { id: shop.id } }

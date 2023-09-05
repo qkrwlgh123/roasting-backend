@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
-      images: DataTypes.STRING,
+      images: DataTypes.TEXT,
       latitude: DataTypes.FLOAT,
       longitude: DataTypes.FLOAT,
       website: DataTypes.STRING,

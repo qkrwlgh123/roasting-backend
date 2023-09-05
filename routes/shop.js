@@ -4,7 +4,7 @@ const router = express.Router();
 const shopController = require('../database/controllers/ShopController');
 const { upload } = require('../utils/uploads');
 
-router.post('/create', upload.single('image'), shopController.addShop);
+router.post('/create', upload.array('image'), shopController.addShop);
 
 router.get('/shops', shopController.seeAllShops);
 
