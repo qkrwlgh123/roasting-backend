@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const TOKEN_KEY = process.env.AUTH_SECRET_KEY;
 
-// 회원가입
+// 회원가입 - Create
 const addUser = async (req, res) => {
   try {
     // 파일 업로드 처리
@@ -53,7 +53,7 @@ const addUser = async (req, res) => {
   }
 };
 
-// 로그인
+// 로그인 - Read
 const loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;

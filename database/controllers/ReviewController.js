@@ -2,7 +2,7 @@ const { Review } = require('../models');
 const { Shop } = require('../models');
 const { User } = require('../models');
 
-// 후기 등록
+// 후기 등록 - Create
 const addReview = async (req, res) => {
   try {
     const { content, rate, userId, shopId } = req.body;
@@ -39,10 +39,12 @@ const addReview = async (req, res) => {
       (accumulator, currentValue) => accumulator + currentValue.dataValues.rate,
       0
     );
+
     // shopId에 해당하는 Shop이 가지고 있는 후기를 쓴 유저 수 불러오기 = n
     const shopsReviewsLength = shopsReviews.length;
 
-    // review의 rate 컬럼에 (accmulated rate / n) 값 업데이트하기
+    // shop의 rate 컬럼에 (accmulated rate / n) 값 업데이트하기
+    // shop의 firstReview 컬럼에 방금 만든 리뷰 content 등록하기
     await shop.update({
       rate: accumulatedRate / shopsReviewsLength,
     });
@@ -56,7 +58,7 @@ const addReview = async (req, res) => {
   }
 };
 
-// 후기 목록 조회
+// 후기 목록 조회 - Read
 const seeReviews = async (req, res) => {
   try {
     const { shopId } = req.query;

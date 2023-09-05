@@ -1,9 +1,9 @@
 const express = require('express');
 
 const app = express();
-
+require('dotenv').config();
 const bodyParser = require('body-parser');
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const { sequelize } = require('./database/models/index');
 const cors = require('cors');
 
@@ -28,4 +28,4 @@ app.use('/review', require('./routes/review'));
 
 app.get('/', (req, res) => res.send(`Server is running at port ${PORT}`));
 
-app.listen(PORT, () => console.log(`Listening in PORT ${PORT}`));
+app.listen(PORT, '0.0.0.0');
