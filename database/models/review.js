@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'shopId',
         as: 'shop_review',
       });
+      Review.hasOne(models.Answer, {
+        foreignKey: 'reviewId', // Answer 모델에서 Review 모델을 참조하기 위한 외래 키
+        onDelete: 'CASCADE', // Review 모델이 삭제될 때 연결된 Answer 모델도 삭제
+        onUpdate: 'CASCADE', // Review 모델이 업데이트될 때 연결된 Answer 모델도 업데이트
+      });
     }
   }
   Review.init(
@@ -26,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       profileImage: DataTypes.STRING,
       content: DataTypes.STRING,
       rate: DataTypes.FLOAT,
-      userId: DataTypes.INTEGER,
+      userId: DataTypes.BIGINT,
       shopId: DataTypes.INTEGER,
     },
     {

@@ -1,6 +1,7 @@
 const { Review } = require('../models');
 const { Shop } = require('../models');
 const { User } = require('../models');
+const { Answer } = require('../models');
 
 // 후기 등록 - Create
 const addReview = async (req, res) => {
@@ -72,7 +73,17 @@ const seeReviews = async (req, res) => {
       },
     });
     const reviewList = shop.get('shop_review');
-
+    // 1. reviewList forEach 메서드 => 위에꺼처럼 findOne 메서드로 Answer모델 데이터 찾기
+    // 2. reviewList의 forEach 메서드로 "answer" key 값에 answewr 모델의 데이터 value로 설정하기
+    for (const review of reviewList) {
+      const reviewId = review.dataValues.id;
+      const reviewAnswer = await Answer.findOne({
+        where: {
+          reviewId,
+        },
+      });
+      review.dataValues.answer = reviewAnswer?.dataValues;
+    }
     res.status(200).send(reviewList);
   } catch (err) {
     console.log(err);
