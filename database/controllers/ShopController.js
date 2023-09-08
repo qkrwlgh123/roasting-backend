@@ -1,4 +1,4 @@
-const { Shop } = require('../models');
+const { Shop, Sequelize } = require('../models');
 
 // 카페 샵 신규 등록 - Create
 const addShop = async (req, res) => {
@@ -104,9 +104,35 @@ const seeRecommendedByLocationShops = async (req, res) => {
   res.status(200).send(filteredDistanceShop);
 };
 
+// 카페 또는 지역 검색 함수
+const searchByKeyword = async (req, res) => {
+  const { keyword } = req.query;
+
+  try {
+    const result = await Shop.findAll({
+      where: {
+        [Sequelize.Op.or]: [
+          { shopName: { [Sequelize.Op.iLike]: `%${keyword}%` } },
+          { roadAddress: { [Sequelize.Op.iLike]: `%${keyword}%` } },
+          { parcelAddress: { [Sequelize.Op.iLike]: `%${keyword}%` } },
+        ],
+      },
+    });
+    const parsedShop = result.map((item) => ({
+      ...item.dataValues,
+      images: JSON.parse(item.images), // 이미지 배열을 파싱하여 다시 배열로 변환
+    }));
+    res.status(200).send(parsedShop);
+    // case 1 +  case 2 + case 3 데이터 전송하기
+  } catch (err) {
+    res.status(500).send('서버 에러');
+  }
+};
+
 module.exports = {
   addShop,
   seeShopDetail,
   seeAllShops,
   seeRecommendedByLocationShops,
+  searchByKeyword,
 };

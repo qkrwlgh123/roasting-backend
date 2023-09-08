@@ -12,4 +12,6 @@ router.get('/detail', shopController.seeShopDetail);
 
 router.get(`/shopsByLocation`, shopController.seeRecommendedByLocationShops);
 
+router.get('/search', shopController.searchByKeyword);
+
 module.exports = router;
