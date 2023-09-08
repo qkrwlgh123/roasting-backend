@@ -2,8 +2,11 @@ const { User } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const axios = require('axios');
+const { where } = require('sequelize');
 
 const TOKEN_KEY = process.env.AUTH_SECRET_KEY;
+const RESTAPI_KEY = process.env.KAKAO_RESTAPI_KEY;
 
 // 회원가입 - Create
 const addUser = async (req, res) => {
@@ -112,8 +115,73 @@ const validateToken = async (req, res) => {
   }
 };
 
+// 카카오 로그인 - 인가 코드 수신 및 카카오 서버로 엑세스 토큰 요청
+const postCodeToKakaoServer = async (req, res) => {
+  const { code } = req.body;
+
+  const restApiKey = RESTAPI_KEY; // 앱키 - Rest API key
+
+  const data = {
+    grant_type: 'authorization_code',
+    client_id: restApiKey,
+    code,
+  };
+
+  const header = {
+    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+    Authorization: 'Bearer ',
+  };
+
+  const queryString = Object.keys(data)
+    .map((k) => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
+    .join('&');
+
+  const kakaoToken = await axios.post(
+    'https://kauth.kakao.com/oauth/token',
+    queryString,
+    { headers: header }
+  );
+
+  header.Authorization += kakaoToken.data.access_token;
+
+  const getInfoFromKakao = await axios.get(
+    'https://kapi.kakao.com/v2/user/me',
+    {
+      headers: header,
+    }
+  );
+
+  const result = getInfoFromKakao.data;
+  const token = jwt.sign(
+    { id: result.id, username: result.properties.nickname },
+    TOKEN_KEY
+  );
+  const existedUser = await User.findOne({
+    where: {
+      id: Number(result.id),
+    },
+  });
+  if (existedUser) {
+    await existedUser.update({
+      username: result.properties.nickname,
+      profileImage: result.properties.profile_image,
+      profileDescription: '',
+    });
+  } else {
+    await User.create({
+      id: Number(result.id),
+      username: result.properties.nickname,
+      profileImage: result.properties.profile_image,
+      profileDescription: '',
+    });
+  }
+
+  res.status(200).send({ result, token });
+};
+
 module.exports = {
   addUser,
   loginUser,
   validateToken,
+  postCodeToKakaoServer,
 };

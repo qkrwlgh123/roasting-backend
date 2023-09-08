@@ -10,4 +10,6 @@ router.post('/sign-up', upload.single('image'), userController.addUser);
 
 router.get('/validate', userController.validateToken);
 
+router.post('/kakaoLogin', userController.postCodeToKakaoServer);
+
 module.exports = router;
