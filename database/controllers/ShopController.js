@@ -37,6 +37,7 @@ const seeShopDetail = async (req, res) => {
     });
     shop.images = JSON.parse(shop.images);
     shop.menu = JSON.parse(shop.menu);
+    shop.keywords = JSON.parse(shop.keywords);
     res.status(200).send(shop);
   } catch (err) {
     console.log(err);
@@ -49,6 +50,7 @@ const seeAllShops = async (req, res) => {
   const parsedShop = shop.map((item) => ({
     ...item.dataValues,
     images: JSON.parse(item.images), // 이미지 배열을 파싱하여 다시 배열로 변환
+    keywords: JSON.parse(item.keywords),
   }));
   res.status(200).send(parsedShop);
 };
@@ -94,7 +96,12 @@ const seeRecommendedByLocationShops = async (req, res) => {
       shopLong
     );
 
-    return { ...shop.dataValues, images: JSON.parse(shop.images), distance };
+    return {
+      ...shop.dataValues,
+      images: JSON.parse(shop.images),
+      keywords: JSON.parse(shop.keywords),
+      distance,
+    };
   });
 
   const filteredDistanceShop = calculatedDistanceShops.filter((shop) => {
@@ -121,6 +128,7 @@ const searchByKeyword = async (req, res) => {
     const parsedShop = result.map((item) => ({
       ...item.dataValues,
       images: JSON.parse(item.images), // 이미지 배열을 파싱하여 다시 배열로 변환
+      keywords: JSON.parse(item.keywords),
     }));
     res.status(200).send(parsedShop);
     // case 1 +  case 2 + case 3 데이터 전송하기
