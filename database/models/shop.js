@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       shopName: DataTypes.STRING,
       keywords: DataTypes.STRING,
-      description: DataTypes.STRING,
+      description: DataTypes.TEXT,
       desertType: DataTypes.STRING,
       roadAddress: DataTypes.STRING,
       parcelAddress: DataTypes.STRING,
@@ -40,7 +40,8 @@ module.exports = (sequelize, DataTypes) => {
       longitude: DataTypes.FLOAT,
       website: DataTypes.STRING,
       menu: DataTypes.STRING,
-      userId: DataTypes.INTEGER,
+      userId: DataTypes.BIGINT,
+      isCreator: DataTypes.BOOLEAN,
     },
     {
       sequelize,

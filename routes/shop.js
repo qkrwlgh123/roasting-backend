@@ -8,6 +8,8 @@ router.post('/create', upload.array('image'), shopController.addShop);
 
 router.get('/shops', shopController.seeAllShops);
 
+router.get('/myList', shopController.seeMyShops);
+
 router.get('/detail', shopController.seeShopDetail);
 
 router.get(`/shopsByLocation`, shopController.seeRecommendedByLocationShops);

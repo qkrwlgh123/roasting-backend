@@ -3,23 +3,36 @@ const { Shop } = require('../models');
 const { User } = require('../models');
 const { Answer } = require('../models');
 
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
+const TOKEN_KEY = process.env.AUTH_SECRET_KEY;
+
 // 후기 등록 - Create
 const addReview = async (req, res) => {
   try {
-    const { content, rate, userId, shopId } = req.body;
+    const { content, rate, shopId } = req.body;
 
-    const user = await User.findOne({
-      where: {
-        id: userId,
-      },
-    });
+    // 헤더에 담긴 토큰을 이용하여 사용자 인증
+    let token = req.headers.authorization;
+
+    if (!token) {
+      return res.status(401).json({ message: '인증되지 않음' });
+    }
+    token = token.split(' ')[1];
+    const decoded = jwt.verify(token, TOKEN_KEY);
+    const userId = Number(decoded.id);
+    const user = await User.findByPk(userId);
+    if (!user) {
+      return res.status(401).json({ message: '인증되지 않음' });
+    }
 
     const createdReview = await Review.create({ content, rate });
 
     await createdReview.update({
       username: user.username,
       profileImage: user.profileImage,
-      userId,
+      userId: user.id,
       shopId,
     });
 
