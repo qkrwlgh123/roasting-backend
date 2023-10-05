@@ -1,6 +1,7 @@
 const AWS = require('aws-sdk');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
+const crypto = require('crypto');
 require('dotenv').config();
 
 const s3 = new AWS.S3({
@@ -18,8 +19,15 @@ const upload = multer({
       file.originalname = Buffer.from(file.originalname, 'latin1').toString(
         'utf8'
       );
-      console.log(file);
-      cb(null, new Date().toISOString() + '-' + decodeURI(file.originalname));
+      const randomString = crypto.randomBytes(16).toString('hex');
+      cb(
+        null,
+        new Date().toISOString() +
+          '-' +
+          randomString +
+          '-' +
+          decodeURI(file.originalname)
+      );
     },
     // limits: { fileSize: 5 * 1024 * 1024 },
   }),
