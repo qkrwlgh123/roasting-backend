@@ -102,16 +102,15 @@ const validateToken = async (req, res) => {
   const { authorization } = req.headers;
   const token = authorization.split(' ')[1];
   try {
+    if (token === 'null') {
+      return res.status(401).json({ message: '인증되지 않음' });
+    }
     const decodedToken = jwt.verify(token, TOKEN_KEY);
     if (decodedToken) {
-      res.status(200).send('토큰 유효성 검사 통과');
+      res.status(200).json({ message: '인증된 사용자' });
     }
   } catch (err) {
-    console.log(err); // 에러 출력
-    if (err instanceof jwt.JsonWebTokenError) {
-      // 에러 타입 검사
-      res.status(401).send('토큰 유효성 검사 불합격');
-    }
+    res.status(500).json({ message: '서버 에러' });
   }
 };
 

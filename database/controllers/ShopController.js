@@ -42,7 +42,7 @@ const addShop = async (req, res) => {
     );
     res.status(201).send(shop);
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ message: '서버 에러' });
   }
 };
 
@@ -55,6 +55,9 @@ const seeShopDetail = async (req, res) => {
         id: shopId,
       },
     });
+    if (!shop) {
+      return res.status(404).json({ message: '존재하지 않는 정보' });
+    }
     // 헤더에 담긴 토큰을 이용하여 작성자인지 확인
     let isCreator = false;
     let token = req.headers?.authorization;
@@ -79,23 +82,30 @@ const seeShopDetail = async (req, res) => {
 
 // 카페 샵 전체 목록 조회
 const seeAllShops = async (req, res) => {
-  const shop = await Shop.findAll().catch((err) => console.log(err));
-  const parsedShop = shop.map((item) => ({
-    ...item.dataValues,
-    images: JSON.parse(item.images), // 이미지 배열을 파싱하여 다시 배열로 변환
-    keywords: JSON.parse(item.keywords),
-  }));
-  res.status(200).send(parsedShop);
+  try {
+    const shop = await Shop.findAll({
+      include: [{ model: Review, as: 'shop_review' }],
+    });
+    const parsedShop = shop.map((item) => ({
+      ...item.dataValues,
+      images: JSON.parse(item.images), // 이미지 배열을 파싱하여 다시 배열로 변환
+      keywords: JSON.parse(item.keywords),
+    }));
+    res.status(200).send(parsedShop);
+  } catch (error) {
+    res.status(500).json({ message: '서버 에러' });
+  }
 };
 
 // 내가 등록한 카페 리스트 조회
 const seeMyShops = async (req, res) => {
   try {
     let token = req.headers.authorization;
-    if (!token) {
+    token = token.split(' ')[1];
+    if (token === 'null') {
       return res.status(401).json({ message: '인증되지 않음' });
     }
-    token = token.split(' ')[1];
+
     const decoded = jwt.verify(token, TOKEN_KEY);
     const userId = Number(decoded.id);
     const user = await User.findByPk(userId);
@@ -114,7 +124,7 @@ const seeMyShops = async (req, res) => {
     }));
     res.status(200).send(parsedShop);
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ message: '서버 에러' });
   }
 };
 
@@ -146,7 +156,9 @@ const seeRecommendedByLocationShops = async (req, res) => {
     return distance;
   };
 
-  const shops = await Shop.findAll();
+  const shops = await Shop.findAll({
+    include: [{ model: Review, as: 'shop_review' }],
+  });
 
   const calculatedDistanceShops = shops.map((shop) => {
     const shopLat = shop.latitude;
