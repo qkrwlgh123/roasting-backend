@@ -2,7 +2,7 @@ require('dotenv').config();
 const env = process.env;
 
 const development = {
-  username: env.SEQUELIZE_USERNAM,
+  username: env.SEQUELIZE_USERNAME,
   password: env.SEQUELIZED_DEV_PASSWORD,
   database: env.SEQUELIZE_DEV_DATABASE,
   host: env.SEQUELIZE_HOST,
