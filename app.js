@@ -27,6 +27,7 @@ app.use('/shop', require('./routes/shop'));
 app.use('/review', require('./routes/review'));
 app.use('/answer', require('./routes/answer'));
 
+console.log(`Server is running at port ${PORT}`);
 app.get('/', (req, res) => res.send(`Server is running at port ${PORT}`));
 
 app.listen(PORT, '0.0.0.0');
