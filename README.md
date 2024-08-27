@@ -1,8 +1,8 @@
 # ☕ Roasting Landmark Server
 
 [![license](https://img.shields.io/badge/License-GPL-red)](https://en.wikipedia.org/wiki/GNU_General_Public_License)
-[![code](https://img.shields.io/badge/Code-Javascript-blue)](https://www.typescriptlang.org/)
-[![Framework](https://img.shields.io/badge/Framework-Express-orange)](https://react.dev/)
+[![code](https://img.shields.io/badge/Code-Javascript-blue)](https://developer.mozilla.org/ko/docs/Web/JavaScript)
+[![Framework](https://img.shields.io/badge/Framework-Express-orange)](https://nodejs.org/en)
 [![API](https://img.shields.io/badge/API-Kakao-blueviolet)](https://developers.kakao.com/)
 [![member](https://img.shields.io/badge/Project-Personal-brightgreen)](https://github.com/qkrwlgh123)
 
@@ -58,7 +58,8 @@ npm start index.js
 ## 🔧 Stack
 
 - **Language**: JavaScript
-- **Library & Framework** : Node.js, Express, S3, Kakao social API
+- **Library & Framework** : Node.js, Express, S3
+- **API** : Kakao social login API
 - **Database** : PostgreSQL
 - **ORM** : Sequelize
 - **Deploy**: AWS EC2, Nginx
