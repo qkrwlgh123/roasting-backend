@@ -2,7 +2,7 @@
 
 [![license](https://img.shields.io/badge/License-GPL-red)](https://en.wikipedia.org/wiki/GNU_General_Public_License)
 [![code](https://img.shields.io/badge/Code-Javascript-blue)](https://developer.mozilla.org/ko/docs/Web/JavaScript)
-[![Framework](https://img.shields.io/badge/Framework-Express-orange)](https://nodejs.org/en)
+[![Framework](https://img.shields.io/badge/Framework-Node.js-orange)](https://nodejs.org/en)
 [![API](https://img.shields.io/badge/API-Kakao-blueviolet)](https://developers.kakao.com/)
 [![member](https://img.shields.io/badge/Project-Personal-brightgreen)](https://github.com/qkrwlgh123)
 
