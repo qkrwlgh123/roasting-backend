@@ -1,14 +1,23 @@
 # ☕ Roasting Landmark Server
 
+<br/>
+
 [![license](https://img.shields.io/badge/License-GPL-red)](https://en.wikipedia.org/wiki/GNU_General_Public_License)
 [![code](https://img.shields.io/badge/Code-Javascript-blue)](https://developer.mozilla.org/ko/docs/Web/JavaScript)
 [![Framework](https://img.shields.io/badge/Framework-Node.js-orange)](https://nodejs.org/en)
 [![API](https://img.shields.io/badge/API-Kakao-blueviolet)](https://developers.kakao.com/)
+[![DBMS](https://img.shields.io/badge/DBMS-PostgreSQL-green)](https://www.postgresql.org/)
 [![member](https://img.shields.io/badge/Project-Personal-brightgreen)](https://github.com/qkrwlgh123)
+
+<br/>
 
 > 위치 및 키워드 기반 카페 탐색 & 홍보 플랫폼 👉 https://roasting.kindparks.com/
 
+<br/>
+
 ![스크린샷 2023-11-17 오후 11 33 48](https://github.com/qkrwlgh123/roasting-landmark-front/assets/85853566/334aa583-1e46-496e-9315-d531e664eaec)
+
+<br/>
 
 ## 📖 Description
 
@@ -19,6 +28,8 @@
 그리고 개인 카페 홍보가 필요한 소상공인들에게, 간단한 절차를 통해 카페를 홍보할 플랫폼을 제공하고 싶었습니다.
 
 이러한 동기로 키워드 기반 카페 탐색 및 홍보 플랫폼인 로스팅 랜드마크를 기획, 개발하게 되었습니다.
+
+<br/>
 
 ## ⭐ Main Feature
 
@@ -34,6 +45,8 @@
 
 - 카페 등록 API
 - 카페 상세 조회 및 평점, 리뷰 작성 API
+
+<br/>
 
 ## 💻 Getting Started
 
@@ -55,6 +68,8 @@ npm run dev
 npm start index.js
 ```
 
+<br/>
+
 ## 🔧 Stack
 
 - **Language**: JavaScript
@@ -63,6 +78,8 @@ npm start index.js
 - **Database** : PostgreSQL
 - **ORM** : Sequelize
 - **Deploy**: AWS EC2, Nginx
+
+<br/>
 
 ## :open_file_folder: Project Structure
 
@@ -78,9 +95,13 @@ app.js
 package.json
 ```
 
+<br/>
+
 ## 🔨 Architecture
 
 <img src="https://github.com/user-attachments/assets/825fd685-38eb-4f4c-8f2d-9dbc8730e25a" width="1000">
+
+<br/>
 
 ## 👨‍👩‍👧‍👦 Developer
 
