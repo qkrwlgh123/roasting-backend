@@ -99,7 +99,7 @@ package.json
 
 ## 🔨 Architecture
 
-<img src="https://github.com/user-attachments/assets/825fd685-38eb-4f4c-8f2d-9dbc8730e25a" width="1000">
+<img src="https://github.com/user-attachments/assets/20dac6c9-688f-4272-b698-a285109d1dbe" alt="스크린샷" width="1000"/>
 
 <br/>
 
